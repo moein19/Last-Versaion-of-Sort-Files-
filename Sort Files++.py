@@ -1,283 +1,49 @@
-import shutil,re,os,customtkinter
+import customtkinter,shutil,os,re
 from tkinter.messagebox import *
 from customtkinter import filedialog
 
-class Sort_files:
+class SortFiles:
     def __init__(self,address):
         self.address = address
 
-        try:
-            self.all_files =  [n for n in os.listdir(self.address)]
-        except:
-            showerror("ERROR".capitalize(),"this Address is False and it isn`t in your System \n Please try again and check your address")
-
-    @property
-    def sort_access(self):
-        access_pat = re.compile(r".*\.accdb$",re.DOTALL)
-        access_files = [n for n in self.all_files if access_pat.match(n)]
-        if len(access_files) > 0:
-            if "access files" not in self.all_files:
-                os.mkdir(self.address+os.sep+"access files")
-            for i in access_files:
+    def sort_files_by_pattern(self,pattern,file_type):
+        pat = re.compile(pattern)
+        valid_files = [n for n in os.listdir(self.address) if pat.match(n)]
+        if len(valid_files) > 0:
+            if f"{file_type} files" not in os.listdir(self.address):
+                os.mkdir(self.address+os.sep+f"{file_type} files")
+            for file in valid_files:
                 try:
-                    shutil.move(self.address + os.sep + i , self.address+os.sep+"access files")
+                    shutil.move(self.address+os.sep+file,self.address+os.sep+f"{file_type} files")
                 except shutil.Error:
-                    os.remove(self.address+os.sep+"access files"+os.sep+i)
-                    shutil.move(self.address + os.sep + i, self.address + os.sep + "access files")
+                    os.remove(self.address+os.sep+f"{file_type} files"+os.sep+file)
+                    shutil.move(self.address + os.sep + file, self.address + os.sep + f"{file_type} files")
 
-    @property
-    def sort_android(self):
-        android_pat = re.compile(r".*\.apk$",re.DOTALL)
-        android_files = [n for n in self.all_files if android_pat.match(n)]
-        if len(android_files) > 0:
-            if "android files" not in self.all_files:
-                os.mkdir(self.address+os.sep+"android files")
-            for i in android_files:
-                try:
-                    shutil.move(self.address + os.sep + i , self.address+os.sep+"android files")
-                except shutil.Error:
-                    os.remove(self.address+os.sep+"android files"+os.sep+i)
-                    shutil.move(self.address + os.sep + i, self.address + os.sep + "android files")
-
-    @property
-    def sort_c(self):
-        c_pat = re.compile(r".*\.c$", re.DOTALL)
-        c_files = [n for n in self.all_files if c_pat.match(n)]
-        if len(c_files) > 0:
-            if "c files" not in self.all_files:
-                os.mkdir(self.address + os.sep + "c files")
-            for i in c_files:
-                try:
-                    shutil.move(self.address + os.sep + i, self.address + os.sep + "c files")
-                except shutil.Error:
-                    os.remove(self.address + os.sep + "c files" + os.sep + i)
-                    shutil.move(self.address + os.sep + i, self.address + os.sep + "c files")
-
-    @property
-    def sort_csv(self):
-        csv_pat = re.compile(r".*\.csv$",re.DOTALL)
-        csv_files = [n for n in self.all_files if csv_pat.match(n)]
-        if len(csv_files) > 0:
-            if "csv files" not in self.all_files:
-                os.mkdir(self.address+os.sep+"csv files")
-            for i in csv_files:
-                try:
-                    shutil.move(self.address + os.sep + i , self.address+os.sep+"csv files")
-                except shutil.Error:
-                    os.remove(self.address+os.sep+"csv files"+os.sep+i)
-                    shutil.move(self.address + os.sep + i, self.address + os.sep + "csv files")
-
-    @property
-    def sort_excel(self):
-        excel_pat = re.compile(r".*\.(xls|xlsx)$",re.DOTALL)
-        excel_files = [n for n in self.all_files if excel_pat.match(n)]
-        if len(excel_files) > 0:
-            if "excel files" not in self.all_files:
-                os.mkdir(self.address+os.sep+"excel files")
-            for i in excel_files:
-                try:
-                    shutil.move(self.address + os.sep + i , self.address+os.sep+"excel files")
-                except shutil.Error:
-                    os.remove(self.address+os.sep+"excel files"+os.sep+i)
-                    shutil.move(self.address + os.sep + i, self.address + os.sep + "excel files")
-
-    @property
-    def sort_exe(self):
-        exe_pat = re.compile(r".*\.exe$",re.DOTALL)
-        exe_files = [n for n in self.all_files if exe_pat.match(n)]
-        if len(exe_files) > 0:
-            if "exe files" not in self.all_files:
-                os.mkdir(self.address+os.sep+"exe files")
-            for i in exe_files:
-                try:
-                    shutil.move(self.address + os.sep + i , self.address+os.sep+"exe files")
-                except shutil.Error:
-                    os.remove(self.address+os.sep+"exe files"+os.sep+i)
-                    shutil.move(self.address + os.sep + i, self.address + os.sep + "exe files")
-
-    @property
-    def sort_html(self):
-        html_pat = re.compile(r".*\.(htm|html)$",re.DOTALL)
-        html_files = [n for n in self.all_files if html_pat.match(n)]
-        if len(html_files) > 0:
-            if "html files" not in self.all_files:
-                os.mkdir(self.address+os.sep+"html files")
-            for i in html_files:
-                try:
-                    shutil.move(self.address + os.sep + i , self.address+os.sep+"html files")
-                except shutil.Error:
-                    os.remove(self.address+os.sep+"html files"+os.sep+i)
-                    shutil.move(self.address + os.sep + i, self.address + os.sep + "html files")
-
-    @property
-    def sort_json(self):
-        json_pat = re.compile(r".*\.json$",re.DOTALL)
-        json_files = [n for n in self.all_files if json_pat.match(n)]
-        if len(json_files) > 0:
-            if "json files" not in self.all_files:
-                os.mkdir(self.address+os.sep+"json files")
-            for i in json_files:
-                try:
-                    shutil.move(self.address + os.sep + i , self.address+os.sep+"json files")
-                except shutil.Error:
-                    os.remove(self.address+os.sep+"json files"+os.sep+i)
-                    shutil.move(self.address + os.sep + i, self.address + os.sep + "json files")
-
-    @property
-    def sort_music(self):
-        music_pat = re.compile(r".*\.(mp3|wav|aac|flac|ogg|wma|m4a|alac|aiff|opus|amr)$",re.DOTALL)
-        music_files = [n for n in self.all_files if music_pat.match(n)]
-        if len(music_files) > 0:
-            if "music files" not in self.all_files:
-                os.mkdir(self.address+os.sep+"music files")
-            for i in music_files:
-                try:
-                    shutil.move(self.address + os.sep + i , self.address+os.sep+"music files")
-                except shutil.Error:
-                    os.remove(self.address+os.sep+"music files"+os.sep+i)
-                    shutil.move(self.address + os.sep + i, self.address + os.sep + "music files")
-
-
-    @property
-    def sort_pdf(self):
-        pdf_pat = re.compile(r".*\.pdf$",re.DOTALL)
-        pdf_files = [n for n in self.all_files if pdf_pat.match(n)]
-        if len(pdf_files) > 0:
-            if "pdf files" not in self.all_files:
-                os.mkdir(self.address+os.sep+"pdf files")
-            for i in pdf_files:
-                try:
-                    shutil.move(self.address + os.sep + i , self.address+os.sep+"pdf files")
-                except shutil.Error:
-                    os.remove(self.address+os.sep+"pdf files"+os.sep+i)
-                    shutil.move(self.address + os.sep + i, self.address + os.sep + "pdf files")
-
-    @property
-    def sort_photo(self):
-        photo_pat = re.compile(r".*\.(jfif|jpg|jpeg|png|gif|bmp|tiff|tif|webp|svg|ico|heic|heif|raw)$",re.DOTALL)
-        photo_files = [n for n in self.all_files if photo_pat.match(n)]
-        if len(photo_files) > 0:
-            if "photo files" not in self.all_files:
-                os.mkdir(self.address+os.sep+"photo files")
-            for i in photo_files:
-                try:
-                    shutil.move(self.address + os.sep + i , self.address+os.sep+"photo files")
-                except shutil.Error:
-                    os.remove(self.address+os.sep+"photo files"+os.sep+i)
-                    shutil.move(self.address + os.sep + i, self.address + os.sep + "photo files")
-
-    @property
-    def sort_pickle(self):
-        pickle_pat = re.compile(r".*\.pickle$",re.DOTALL)
-        pickle_files = [n for n in self.all_files if pickle_pat.match(n)]
-        if len(pickle_files) > 0:
-            if "pickle files" not in self.all_files:
-                os.mkdir(self.address+os.sep+"pickle files")
-            for i in pickle_files:
-                try:
-                    shutil.move(self.address + os.sep + i , self.address+os.sep+"pickle files")
-                except shutil.Error:
-                    os.remove(self.address+os.sep+"pickle files"+os.sep+i)
-                    shutil.move(self.address + os.sep + i, self.address + os.sep + "pickle files")
-
-    @property
-    def sort_powerPoint(self):
-        PowerPoint_pat = re.compile(r".*\.pptx$",re.DOTALL)
-        PowerPoint_files = [n for n in self.all_files if PowerPoint_pat.match(n)]
-        if len(PowerPoint_files) > 0:
-            if "PowerPoint files" not in self.all_files:
-                os.mkdir(self.address+os.sep+"PowerPoint files")
-            for i in PowerPoint_files:
-                try:
-                    shutil.move(self.address + os.sep + i , self.address+os.sep+"PowerPoint files")
-                except shutil.Error:
-                    os.remove(self.address+os.sep+"PowerPoint files"+os.sep+i)
-                    shutil.move(self.address + os.sep + i, self.address + os.sep + "PowerPoint files")
-
-    @property
-    def sort_python(self):
-        python_pat = re.compile(r".*\.py$",re.DOTALL)
-        python_files = [n for n in self.all_files if python_pat.match(n)]
-        if len(python_files) > 0:
-            if "python files" not in self.all_files:
-                os.mkdir(self.address+os.sep+"python files")
-            for i in python_files:
-                try:
-                    shutil.move(self.address + os.sep + i , self.address+os.sep+"python files")
-                except shutil.Error:
-                    os.remove(self.address+os.sep+"python files"+os.sep+i)
-                    shutil.move(self.address + os.sep + i, self.address + os.sep + "python files")
-
-    @property
-    def sort_rar(self):
-        rar_pat = re.compile(r".*\.rar$",re.DOTALL)
-        rar_files = [n for n in self.all_files if rar_pat.match(n)]
-        if len(rar_files) > 0:
-            if "rar files" not in self.all_files:
-                os.mkdir(self.address+os.sep+"rar files")
-            for i in rar_files:
-                try:
-                    shutil.move(self.address + os.sep + i , self.address+os.sep+"rar files")
-                except shutil.Error:
-                    os.remove(self.address+os.sep+"rar files"+os.sep+i)
-                    shutil.move(self.address + os.sep + i, self.address + os.sep + "rar files")
-
-    @property
-    def sort_txt(self):
-        txt_pat = re.compile(r".*\.txt$",re.DOTALL)
-        txt_files = [n for n in self.all_files if txt_pat.match(n)]
-        if len(txt_files) > 0:
-            if "txt files" not in self.all_files:
-                os.mkdir(self.address+os.sep+"txt files")
-            for i in txt_files:
-                try:
-                    shutil.move(self.address + os.sep + i , self.address+os.sep+"txt files")
-                except shutil.Error:
-                    os.remove(self.address+os.sep+"txt files"+os.sep+i)
-                    shutil.move(self.address + os.sep + i, self.address + os.sep + "txt files")
-
-    @property
-    def sort_video(self):
-        video_pat = re.compile(r".*\.(mp4|mkv|mov|avi|flv|wmv|3gp|webm|m4v|mpg|mpeg|ovg|ts|f4v)$",re.DOTALL)
-        video_files = [n for n in self.all_files if video_pat.match(n)]
-        if len(video_files) > 0:
-            if "video files" not in self.all_files:
-                os.mkdir(self.address+os.sep+"video files")
-            for i in video_files:
-                try:
-                    shutil.move(self.address + os.sep + i , self.address+os.sep+"video files")
-                except shutil.Error:
-                    os.remove(self.address+os.sep+"video files"+os.sep+i)
-                    shutil.move(self.address + os.sep + i, self.address + os.sep + "video files")
-
-    @property
-    def sort_word(self):
-        word_pat = re.compile(r".*\.docx$",re.DOTALL)
-        word_files = [n for n in self.all_files if word_pat.match(n)]
-        if len(word_files) > 0:
-            if "word files" not in self.all_files:
-                os.mkdir(self.address+os.sep+"word files")
-            for i in word_files:
-                try:
-                    shutil.move(self.address + os.sep + i , self.address+os.sep+"word files")
-                except shutil.Error:
-                    os.remove(self.address+os.sep+"word files"+os.sep+i)
-                    shutil.move(self.address + os.sep + i, self.address + os.sep + "word files")
-
-    @property
-    def sort_zip(self):
-        zip_pat = re.compile(r".*\.zip$",re.DOTALL)
-        zip_files = [n for n in self.all_files if zip_pat.match(n)]
-        if len(zip_files) > 0:
-            if "zip files" not in self.all_files:
-                os.mkdir(self.address+os.sep+"zip files")
-            for i in zip_files:
-                try:
-                    shutil.move(self.address + os.sep + i , self.address+os.sep+"zip files")
-                except shutil.Error:
-                    os.remove(self.address+os.sep+"zip files"+os.sep+i)
-                    shutil.move(self.address + os.sep + i, self.address + os.sep + "zip files")
-
+    def sort_files(self,file_type):
+        file_patterns = {
+            "access": r".*\.(accdb|mdb|accde|mde|ade|accft|mdw)$",
+            "android": r".*\.(apk|obb|xapk|apks|aab|dex|jar|xml|cfg|db|sqlite|log|bak|bin|img|iso)$",
+            "c": r".*\.c$",
+            "csv": r".*\.csv$",
+            "excel": r".*\.(xls|xlsx|xlsm|xlsb|xlt|xltx|xltm|csv|xml|xlam|xla)$",
+            "exe": r".*\.exe$",
+            "html": r".*\.(htm|html)$",
+            "json": r".*\.json$",
+            "music": r".*\.(mp3|wav|aac|flac|ogg|wma|m4a|alac|aiff|opus|amr|ape|dsf|dff|pcm|mid|midi|mod|xm|s3m|it|cda|ra|rm|au|voc|wv|tta|snd|caf|mpc)$",
+            "pdf": r".*\.pdf$",
+            "photo": r".*\.(jpg|jpeg|png|gif|bmp|tiff|tif|webp|heic|heif|avif|raw|cr2|nef|arw|orf|sr2|rw2|dng|ico|svg|eps|psd|ai|xcf)$",
+            "pickle": r".*\.pickle$",
+            "powerPoint": r".*\.(ppt|pptx|pps|ppsx|pot|potx|pptm|potm|ppsm)",
+            "python": r".*\.py$",
+            "rar": r".*\.rar$",
+            "txt": r".*\.txt$",
+            "video": r".*\.(mp4|m4v|mov|avi|wmv|flv|webm|mkv|3gp|3g2|mpg|mpeg|mpe|ts|m2ts|mts|vob|rm|rmvb|asf|f4v|ogv|divx)$",
+            "word": r".*\.(doc|docx|dot|dotx|docm|dotm)$",
+            "zip": r".*\.zip$",
+        }
+        pattern = file_patterns.get(file_type)
+        if pattern:
+            self.sort_files_by_pattern(pattern,file_type)
 class Window(customtkinter.CTk):
     def __init__(self):
         super().__init__()
@@ -454,71 +220,71 @@ zip
 
     def specialized(self,ch):
         if ch == "sort android" :
-            Sort_files(self.entry.get()).sort_android
+            SortFiles(self.entry.get()).sort_files("android")
             self.sort_station.append("sort android")
             self.combo.configure(values=set(self.sort_station))
             showinfo("OK", "all android files moved to android files directory")
         elif ch == "sort csv":
-            Sort_files(self.entry.get()).sort_csv
+            SortFiles(self.entry.get()).sort_files("csv")
             self.sort_station.append("sort csv")
             self.combo.configure(values=set(self.sort_station))
             showinfo("OK", "all csv files moved to csv files directory")
         elif ch == "sort exe":
-            Sort_files(self.entry.get()).sort_exe
+            SortFiles(self.entry.get()).sort_files("exe")
             self.sort_station.append("sort exe")
             self.combo.configure(values=set(self.sort_station))
             showinfo("OK", "all exe files moved to exe files directory")
         elif ch == "sort json":
-            Sort_files(self.entry.get()).sort_json
+            SortFiles(self.entry.get()).sort_files("json")
             self.sort_station.append("sort json")
             self.combo.configure(values=set(self.sort_station))
             showinfo("OK", "all json files moved to json files directory")
         elif ch == "sort pickle":
-            Sort_files(self.entry.get()).sort_pickle
+            SortFiles(self.entry.get()).sort_files("pickle")
             self.sort_station.append("sort pickle")
             self.combo.configure(values=set(self.sort_station))
             showinfo("OK", "all pickle files moved to pickle files directory")
 
         elif ch == "sort txt":
-            Sort_files(self.entry.get()).sort_txt
+            SortFiles(self.entry.get()).sort_files("txt")
             self.sort_station.append("sort txt")
             self.combo.configure(values=set(self.sort_station))
             showinfo("OK", "all txt files moved to txt files directory")
 
     def pro(self,choice):
         if choice == "sort c":
-            Sort_files(self.entry.get()).sort_c
+            SortFiles(self.entry.get()).sort_files("c")
             self.sort_station.append("sort c")
             self.combo.configure(values=set(self.sort_station))
             showinfo("OK","all c files moved to c files directory")
 
         elif choice == "sort html":
-            Sort_files(self.entry.get()).sort_html
+            SortFiles(self.entry.get()).sort_files("html")
             showinfo("OK","all html files moved to html files directory")
             self.sort_station.append("sort html")
             self.combo.configure(values=set(self.sort_station))
 
         elif choice == "sort python":
-            Sort_files(self.entry.get()).sort_python
+            SortFiles(self.entry.get()).sort_files("python")
             showinfo("OK", "all python files moved to python files directory")
             self.sort_station.append("sort python")
             self.combo.configure(values=set(self.sort_station))
 
     def recreational_pack(self,ch):
         if ch == "sort music":
-            Sort_files(self.entry.get()).sort_music
+            SortFiles(self.entry.get()).sort_files("music")
             showinfo("OK", "all music files moved to music files directory")
             self.sort_station.append("sort music")
             self.combo.configure(values=set(self.sort_station))
 
         elif ch == "sort photo":
-            Sort_files(self.entry.get()).sort_photo
+            SortFiles(self.entry.get()).sort_files("photo")
             showinfo("OK", "all photo files moved to photo files directory")
             self.sort_station.append("sort photo")
             self.combo.configure(values=set(self.sort_station))
 
         elif ch == "sort video":
-            Sort_files(self.entry.get()).sort_video
+            SortFiles(self.entry.get()).sort_files("video")
             showinfo("OK", "all video files moved to video files directory")
             self.sort_station.append("sort video")
             self.combo.configure(values=set(self.sort_station))
@@ -532,43 +298,43 @@ zip
 
     def commress_types(self,ch):
         if ch == "sort rar":
-            Sort_files(self.entry.get()).sort_rar
+            SortFiles(self.entry.get()).sort_files("rar")
             showinfo("OK", "all rar files moved to rar files directory")
             self.sort_station.append("sort rar")
             self.combo.configure(values=set(self.sort_station))
         elif ch == "sort zip":
-            Sort_files(self.entry.get()).sort_zip
+            SortFiles(self.entry.get()).sort_files("zip")
             showinfo("OK", "all zip files moved to zip files directory")
             self.sort_station.append("sort zip")
             self.combo.configure(values=set(self.sort_station))
 
     def office_pack(self,ch):
         if ch == "sort access":
-            Sort_files(self.entry.get()).sort_access
+            SortFiles(self.entry.get()).sort_files("access")
             showinfo("OK", "all access files moved to access files directory")
             self.sort_station.append("sort access")
             self.combo.configure(values=set(self.sort_station))
 
         elif ch == "sort excel":
-            Sort_files(self.entry.get()).sort_excel
+            SortFiles(self.entry.get()).sort_files("excel")
             showinfo("OK", "all excel files moved to excel files directory")
             self.sort_station.append("sort excel")
             self.combo.configure(values=set(self.sort_station))
 
         elif ch == "sort pdf":
-            Sort_files(self.entry.get()).sort_pdf
+            SortFiles(self.entry.get()).sort_files("pdf")
             showinfo("OK", "all pdf files moved to pdf files directory")
             self.sort_station.append("sort pdf")
             self.combo.configure(values=set(self.sort_station))
 
         elif ch == "sort Power Point":
-            Sort_files(self.entry.get()).sort_powerPoint
+            SortFiles(self.entry.get()).sort_files("powerPoint")
             showinfo("OK", "all Power Point files moved to Power Point files directory")
             self.sort_station.append("sort power point")
             self.combo.configure(values=set(self.sort_station))
 
         elif ch == "sort word":
-            Sort_files(self.entry.get()).sort_word
+            SortFiles(self.entry.get()).sort_files("word")
             showinfo("OK", "all word files moved to word files directory")
             self.sort_station.append("sort word")
             self.combo.configure(values=set(self.sort_station))
