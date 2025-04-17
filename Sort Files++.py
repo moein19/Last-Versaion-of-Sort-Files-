@@ -33,7 +33,7 @@ class SortFiles:
             "pdf": r".*\.pdf$",
             "photo": r".*\.(jpg|jpeg|png|gif|bmp|tiff|tif|webp|heic|heif|avif|raw|cr2|nef|arw|orf|sr2|rw2|dng|ico|svg|eps|psd|ai|xcf)$",
             "pickle": r".*\.pickle$",
-            "powerPoint": r".*\.(ppt|pptx|pps|ppsx|pot|potx|pptm|potm|ppsm)",
+            "powerPoint": r".*\.(ppt|pptx|pps|ppsx|pot|potx|pptm|potm|ppsm)$",
             "python": r".*\.py$",
             "rar": r".*\.rar$",
             "txt": r".*\.txt$",
