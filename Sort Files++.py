@@ -149,6 +149,90 @@ word
 zip
 """
 
+        self.data2 = r"""
+
+خواسته‌اید تا به حال آیا که کنید سازماندهی خودکار صورت به را پوشه‌ای یک فایل‌های؟
+شماست برای برنامه‌ای SortFiles++
+
+برنامه از استفاده نحوه:
+می‌کنید انتخاب Browse دکمه یا دستی صورت به را است حاوی فایل‌ها که سیستمی در مورد نظر پوشه آدرس ابتدا
+
+کنید کلیک گزینه آن روی و کنید انتخاب فایل نوع به مربوط منوی از را کرده‌اید انتخاب که‌ای پوشه در را می‌خواهید که را فایلی سپس
+
+:مثال
+کنیم مرتب را Desktop در موجود Word فایل‌های تمام می‌خواهیم
+
+دهید دستی صورت به را Desktop آدرس کامل می‌توانید، یعنی باشد این شکل به باید:
+C:\Users{UserName}\Desktop
+
+نویسد می‌آدرس انتخاب بخش در اول روش معادل چیزی و است خودکار کاملاً اساساً که کنید کلیک SelectFolder گزینه روی و روید برو خود در مورد نظر پوشه به Browse دکمه با می‌توانید یا
+
+C:\Users{UserName}\Desktop
+
+دهد انجام را کار این به‌صورت برنامه بلکه، کنید نمی‌پیست را آدرس خودتان شما دوم، روش در است این نکته
+
+کردیم وارد برنامه به را Desktop آدرس و آمدیم دوم روش از ما هم اول روش هم، اینجا تا حال به
+
+هستند آفیس مجموعه زیرمجموعه Word فایل‌های تمام و نرم‌افزار این زیرا کنیم انتخاب را آن مربوط گزینه آفیس منوی از باید کنیم مرتب را ورد فایل‌های که می‌خواهیم که حالا
+
+:برنامه رفتار
+
+دهید قرار در آن پوشه تمام را txt فایل‌های و می‌کند ایجاد txt فایل‌های پوشه مثلاً می‌کند ایجاد را File That Type نام به‌ای پوشه، کرده‌اید وارد را آدرسی که در آن در مورد نظر فایل گزینه و آدرس دادن از بعد
+
+می‌شوند جایگذاری به‌اصطلاح، شوند منتقل txt فایل‌های پوشه آن به‌ها فایل تمام، باشید کرده‌اید استفاده آن در قبلاً برنامه این از یا باشید داشته آدرس آن در تصادفی‌ای پوشه اگر
+
+:مهم بسیار نکته
+********** دارید را کرده‌اید وارد را آدرسی که در پوشه‌ای در Data.txt نام به فایلی یک شما **********
+می‌شود وارد آن را آدرس که پوشه‌ای در جایگزین فایلی و می‌کند حذف txt files پوشه در را Data.txt فایل یعنی، کند رفتار با شما ویندوز رفتار مشابه برنامه این دارد txt فایل‌های پوشه در نام همین با فایلی همچنین و
+
+داده‌اید انجام که‌ای مرتب‌سازی هر، Sort Station بخش در
+
+‌کرده‌اید انجام را مرتب‌سازی چند که ببینید می‌توانید انتها در و شود اضافه
+
+کند مرتب‌سازی را آفیس فایل‌های انواع تا پایتون برنامه‌نویسی‌های انواع از، مختلف نوع ۱۹ می‌تواند برنامه این
+
+:میانبرها
+است برنامه از خروج برای میانبر q little .۱
+است تیره به تم تغییر برای میانبر d little .۲
+است روشن به تم تغییر برای میانبر l little .۳
+است مرور دکمه اجرای برای میانبر b little .۴
+است آدرس رها کردن (حذف) برای میانبر D capital .۵
+
+کنند کار میانبرها، باشند روشن فعال میانبرهای کلیدی کلمات گزینه اگر: توجه
+
+:برنامه مشخصات
+
+++SortFiles :برنامه نام
+پوشه یک در فایل‌ها سازماندهی :برنامه عملکرد
+حسین‌زاده معین محمد :برنامه‌نویس
+است شده ایجاد ماه ۷ :ایجاد زمان مدت
+:پایتون برنامه‌نویسی زبان
+شمسی هجری ۱۴۰۴ معادل میلادی ۲۰۲۵ سال ساخت
+moein191013895@gmail.com :برنامه‌نویس ایمیل    
+
+دارد را آنها سازی مرتب توانایی برنامه که هایی فایل 
+
+access
+android
+c
+csv
+excel
+exe
+html
+json
+music
+pdf
+photo
+pickle
+powerpoint
+python
+rar
+txt
+video
+word
+zip
+"""
+
         ###################Frame2
         frame2 = customtkinter.CTkFrame(self)
         frame2.grid(row=1, column=1, sticky="nsew")
@@ -215,8 +299,14 @@ zip
         self.help = customtkinter.CTkTextbox(frame4,wrap="word",state="disabled")
         self.help.grid(row=1,column=0,sticky="nsew",padx=15,pady=10)
 
-        self.btnHelp = customtkinter.CTkButton(frame4,text="Help",text_color=("Black","white"),fg_color=("#BFFFFF","#008B8B"),hover_color=("#8CFFFB","#004B49"),command=self.writeHelp)
-        self.btnHelp.grid(row=0,column=0,sticky="nsew",padx=300,pady=5)
+        self.inside_frame = customtkinter.CTkFrame(frame4, fg_color="transparent")
+        self.inside_frame.grid(row = 0 , column = 0,sticky="nsew",padx=300,pady=5)
+
+        self.btnHelp = customtkinter.CTkButton(self.inside_frame,text="Help(English)",text_color=("Black","white"),fg_color=("#BFFFFF","#008B8B"),hover_color=("#8CFFFB","#004B49"),command=self.writeHelp)
+        self.btnHelp.grid(row=0,column=0,sticky="nsew" , padx = 15)
+
+        self.btn_translate = customtkinter.CTkButton(self.inside_frame,text="Help(Persian)",text_color=("Black","white") , fg_color=("#BFFFFF","#008B8B"),hover_color=("#8CFFFB","#004B49"),  command = self.writeHelp2)
+        self.btn_translate.grid(row = 0 , column = 1 , sticky = "nsew" , padx =  15)
 
     def specialized(self,ch):
         if ch == "sort android" :
@@ -350,13 +440,21 @@ zip
         self.entry.insert(0,filedialog.askdirectory())
 
     def writeHelp(self):
-        if len(self.help.get(0.0,"end")) == 1:
             self.help.configure(state="normal")
+            self.help.delete(0.0,"end")
             self.help.insert(0.0,self.data)
             self.help.configure(state="disabled")
-        else:
-            showwarning("WARNING".capitalize(),"You clicked this button once")
 
+    def writeHelp2(self):
+            self.help.configure(state="normal")
+            self.help.delete(0.0,"end")
+            self.help.insert(0.0,self.data2)
+            self.help.tag_add("rtl","1.0","end")
+
+            self.help.tag_config("rtl", justify="right", lmargin1=10, lmargin2=10, rmargin=10)
+
+            self.help.configure(state="disabled")
+        
     def validkeyword(self,ch):
         if self.switch.get() == "on":
             if ch.char == "d":
