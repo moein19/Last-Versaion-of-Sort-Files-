@@ -8,7 +8,7 @@ class SortFiles:
 
     def sort_files_by_pattern(self,pattern,file_type):
         pat = re.compile(pattern)
-        valid_files = [n for n in os.listdir(self.address) if pat.match(n)]
+        valid_files = [n for n in [n for n in os.listdir(self.address) if os.path.isfile(os.path.join(self.address , n))] if pat.match(n)]
         if len(valid_files) > 0:
             if f"{file_type} files" not in os.listdir(self.address):
                 os.mkdir(self.address+os.sep+f"{file_type} files")
